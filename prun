@@ -1,6 +1,35 @@
 #!/usr/bin/perl
-
 use 5.012;
 use warnings;
+use color;
 
-say q/d/;
+# say 'Reading schema.';
+
+my %cate;
+open my $fl, '<', 'schema';
+while(<$fl>){
+    if (/^(\S*)\s*(\d*),(\d*),(\d*)/) {
+        # say "$1=>($2,$3,$4)";
+        $cate{$1} = Color->new([$2, $3, $4]);
+    }
+}
+close $fl;
+
+while(<>){
+    if (/(\d*),(\d*),(\d*)/) {
+        my $c = Color->new([$1,$2,$3]);
+        my $mi;
+        my $miv;
+        for my $k (keys %cate) {
+            my $gap = $c - $cate{$k};
+            if ( !defined($mi) || $miv > $gap) {
+                $mi = $k;
+                $miv = $gap;
+            }
+        }
+
+        say $mi;
+    } else {
+        say "invalid input.";
+    }
+}
