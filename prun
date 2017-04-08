@@ -4,9 +4,10 @@ use warnings;
 use color;
 
 # say 'Reading schema.';
+my $schema = shift || 'schema';
 
 my %cate;
-open my $fl, '<', 'schema';
+open my $fl, '<', $schema;
 while(<$fl>){
     if (/^(\S*)\s*(\d*),(\d*),(\d*)/) {
         # say "$1=>($2,$3,$4)";
