@@ -23,6 +23,7 @@ while(<>){
         my $miv;
         for my $k (keys %cate) {
             my $gap = $c - $cate{$k};
+            # say "$k:$gap";
             if ( !defined($mi) || $miv > $gap) {
                 $mi = $k;
                 $miv = $gap;
@@ -30,6 +31,12 @@ while(<>){
         }
 
         say $mi;
+        #say "----";
+
+        my @rs = sort { $cate{$a} - $c <=> $cate{$b} - $c } keys %cate;
+        say "$rs[0]";
+        say "$rs[1]";
+        say "----";
     } else {
         say "invalid input.";
     }
